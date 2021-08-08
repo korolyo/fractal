@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="64a0cccb-6dc0-45dd-a7d6-ca884abc38f2" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1rNVVgSGZTgLlsLABiX5J1Igqc5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="ObjectiveC" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/cmake-build-debug" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="64a0cccb-6dc0-45dd-a7d6-ca884abc38f2" name="Default Changelist" comment="" />
+      <created>1618816564404</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618816564404</updated>
+      <workItem from="1618816573007" duration="233000" />
+      <workItem from="1618823936754" duration="1547000" />
+      <workItem from="1618833131399" duration="3708000" />
+      <workItem from="1618843775927" duration="3065000" />
+      <workItem from="1618915333723" duration="495000" />
+      <workItem from="1618919006306" duration="1000" />
+      <workItem from="1618922980284" duration="5223000" />
+      <workItem from="1619000610528" duration="3169000" />
+      <workItem from="1619016568510" duration="3071000" />
+      <workItem from="1619083267958" duration="746000" />
+      <workItem from="1619087174525" duration="1556000" />
+      <workItem from="1619091007098" duration="6078000" />
+      <workItem from="1619107894397" duration="1331000" />
+      <workItem from="1619116269768" duration="13834000" />
+      <workItem from="1619160880898" duration="6403000" />
+      <workItem from="1619173673396" duration="12548000" />
+      <workItem from="1619199072112" duration="6009000" />
+      <workItem from="1619263439818" duration="2447000" />
+      <workItem from="1619268523928" duration="9354000" />
+      <workItem from="1619300943605" duration="2382000" />
+      <workItem from="1619308034071" duration="385000" />
+      <workItem from="1619346963179" duration="1091000" />
+      <workItem from="1619356304396" duration="2293000" />
+      <workItem from="1619434048605" duration="6590000" />
+      <workItem from="1619447179299" duration="9203000" />
+      <workItem from="1619517285765" duration="20989000" />
+      <workItem from="1619601073610" duration="4867000" />
+      <workItem from="1619608132600" duration="172000" />
+      <workItem from="1619615095121" duration="15664000" />
+      <workItem from="1619684688348" duration="20587000" />
+      <workItem from="1619765242825" duration="9103000" />
+      <workItem from="1619806018234" duration="4252000" />
+      <workItem from="1619814146024" duration="1036000" />
+      <workItem from="1619857742395" duration="502000" />
+      <workItem from="1619858911189" duration="18003000" />
+      <workItem from="1619885403906" duration="1186000" />
+      <workItem from="1619899257611" duration="4968000" />
+      <workItem from="1619946964550" duration="19757000" />
+      <workItem from="1620026351077" duration="14159000" />
+      <workItem from="1620044724511" duration="3466000" />
+      <workItem from="1620061992956" duration="10388000" />
+      <workItem from="1620075063192" duration="10000" />
+      <workItem from="1620113432757" duration="26036000" />
+      <workItem from="1620162684048" duration="437000" />
+      <workItem from="1620206360032" duration="6024000" />
+      <workItem from="1620223925741" duration="2612000" />
+      <workItem from="1620232135754" duration="10181000" />
+      <workItem from="1620289887247" duration="17721000" />
+      <workItem from="1620373271411" duration="3126000" />
+      <workItem from="1620387865063" duration="1385000" />
+      <workItem from="1620404559956" duration="10300000" />
+      <workItem from="1620464303931" duration="1788000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ft_atoi.c</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
