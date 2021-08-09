@@ -37,52 +37,46 @@ int	main()
 	double i;
 	int iter_max = 1000;
 	int iter;
-	const int ixMax = 1000;
-	const int iyMax = 1000;
-	const double c_x_min = -2.5;
-	const double c_x_max = 1.5;
-	const double c_y_min = -2.0;
-	const double c_y_max = 2.0;
-	double pix_width;
-	double pix_heigth;
-	double cx;
-	double cy;
+	const int width = 1920;
+	const int height = 1080;
+	double px;
+	double py;
 	double zx;
 	double zy;
 
 	x = 1;
 	y = 1;
-	pix_width  = (c_x_max - c_x_min)/ixMax;
-	pix_heigth = (c_y_max - c_y_min)/iyMax;
+	iter = 0;
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Mandelbrot set");
 	img.img = mlx_new_image(vars.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len,
 								 &img.endian);
-	while (y <= iyMax-1)
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	while (y <= height)
 	{
-			cy = y * pix_heigth + y * pix_heigth;
-			if (fabs(cy) < pix_heigth / 2)
-				cy = 0.0;
-			while (x <= ixMax-1)
+			while (x <= width)
 			{
-				cx = c_x_min + x * pix_width;
+				px = (x - width/2) * 4 / width;
+				py = (y - height/2) * 4 / height;
 				zx = 0.0;
 				zy = 0.0;
 				iter = 0;
 				while (zx * zx + zy * zy < 4 && iter <= iter_max)
 				{
-					i = zx * zx - zy * zy + cx;
-					zy = 2 * zx * zy + cy;
+					i = zx * zx - zy * zy + px;
+					zy = 2 * zx * zy + py;
 					zx = i;
 					iter++;
 				}
-				my_mlx_pixel_put(&img, zx, zy, 0x00FF0000);
+				if (iter == 1000)
+					my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+				else
+					my_mlx_pixel_put(&img, x, y, 0x00FF0000);
 				x++;
 			}
 		y++;
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_hook(vars.win, 2, 1L<<0, key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
