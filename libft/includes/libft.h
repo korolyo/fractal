@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acollin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/04 22:08:19 by acollin           #+#    #+#             */
+/*   Updated: 2021/08/04 22:08:21 by acollin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -13,8 +25,6 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-void	ft_putchar(char c);
-void	ft_putstr(char *str);
 int		ft_atoi(const char *nptr);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);

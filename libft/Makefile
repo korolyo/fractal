@@ -1,9 +1,20 @@
 
 NAME	= libft.a
+CC		= gcc
+CFLAGS	=	-Werror -Wall -Wextra -O3 -c
+INCLUDES =	-I$(HEADERS_DIR)
+
+HEADERS_LIST	= libft.h\
+
+HEADERS_DIR	= includes/
+HEADERS =	$(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 LIST	= 	ft_atoi.c		ft_bzero.c			ft_isalnum.c\
 			ft_isalpha.c	ft_isascii.c		ft_isdigit.c\
 			ft_isprint.c	ft_itoa.c			ft_memccpy.c\
+			ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c\
+			ft_lstlast.c	ft_lstadd_back.c	ft_lstdelone.c\
+			ft_lstclear.c	ft_lstiter.c		ft_lstmap.c\
 			ft_memchr.c		ft_memcmp.c			ft_memcpy.c\
 			ft_memmove.c	ft_memset.c			ft_putchar_fd.c\
 			ft_putendl_fd.c	ft_putnbr_fd.c		ft_putstr_fd.c\
@@ -12,39 +23,26 @@ LIST	= 	ft_atoi.c		ft_bzero.c			ft_isalnum.c\
 			ft_split.c		ft_strlcpy.c		ft_strncmp.c\
 			ft_strnstr.c	ft_strmapi.c		ft_strrchr.c\
 			ft_substr.c		ft_strtrim.c		ft_tolower.c\
-			ft_toupper.c
-
-LIST_B	=	ft_lstnew.c		ft_lstadd_front.c	ft_lstsize.c\
-			ft_lstlast.c	ft_lstadd_back.c	ft_lstdelone.c\
-			ft_lstclear.c	ft_lstiter.c		ft_lstmap.c
+			ft_toupper.c\
 
 OBJS	=	$(patsubst %.c, %.o, $(LIST))
-OBJS_B	=	$(patsubst %.c, %.o, $(LIST_B))
 
-D_FILES	=	$(patsubst %.c, %.d, $(LIST) $(LIST_B))
-CC		= gcc
-
-CFLAGS	=	-Werror -Wall -Wextra
+.PHONY:	all clean fclean re
 
 all	:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-	ar rcs $(NAME) $?
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
-%.o	:	%.c
-	gcc $(CFLAGS)  -c $< -o $@ -MD
+%.o	:	%.c $(HEADERS)
+	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
-include	$(wildcard $(D_FILES))
-
-bonus:	$(OBJS) $(OBJS_B)
-		ar rcs $(NAME) $(OBJS) $(OBJS_B)
-
-clean:	
-		@rm -f $(OBJS) $(OBJS_B) $(D_FILES)
+clean:
+		@rm -f $(OBJS)
 
 fclean:	clean
 		@rm -f $(NAME)
 
 re:		fclean all
 
-.PHONY:	all clean fclean re bonus

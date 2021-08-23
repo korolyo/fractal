@@ -1,83 +1,161 @@
+
 #include "ft_fractol.h"
 
-typedef struct	sdata {
-	void		*img;
-	char		*addr;
-	int 		bits_per_pixel;
-	int 		line_len;
-	int 		endian;
-}				t_data;
-
-typedef	struct	s_vars {
-	void		*mlx;
-	void 		*win;
-}				t_vars;
-
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
-	dst = data->addr + (y * data->line_len + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-int	key_hook(int keycode, t_vars  *vars)
+int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
+	{
 		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
 	return (0);
 }
 
-int	main()
+int	ft_gradient(int startcolor, int endcolor, int len, int pix)
 {
-	t_vars vars;
-	t_data	img;
-	double x;
-	double y;
-	double i;
-	int iter_max = 1000;
-	int iter;
-	const int width = 1920;
-	const int height = 1080;
-	double px;
-	double py;
-	double zx;
-	double zy;
+	double	increment[3];
+	int		new[3];
+	int		newcolor;
 
-	x = 1;
-	y = 1;
-	iter = 0;
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Mandelbrot set");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_len,
-								 &img.endian);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	while (y <= height)
+	increment[0] = (double)((R(endcolor)) - (R(startcolor))) / (double)len;
+	increment[1] = (double)((G(endcolor)) - (G(startcolor))) / (double)len;
+	increment[2] = (double)((B(endcolor)) - (B(startcolor))) / (double)len;
+	new[0] = (R(startcolor)) + fabs(pix * increment[0]);
+	new[1] = (G(startcolor)) + fabs(pix * increment[1]);
+	new[2] = (B(startcolor)) + fabs(pix * increment[2]);
+	newcolor = RGB(new[0], new[1], new[2]);
+	return (newcolor);
+}
+
+void	ft_mandelbrot(t_vars *vars)
+{
+	t_data img;
+
+	mlx_clear_window(vars->mlx, vars->win);
+	img.img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	vars->y = 1;
+	while (vars->y < HEIGHT)
 	{
-			while (x <= width)
+		vars->x = 1;
+		while (vars->x < WIDTH)
+		{
+			vars->px = 2 * (vars->x - WIDTH / 2) / (0.5 * WIDTH * vars->zoom);
+			vars->py = (vars->y - HEIGHT / 2) / (0.5 * HEIGHT * vars->zoom);
+			vars->zx = 0.0;
+			vars->zy = 0.0;
+			vars->i = 0;
+			vars->iter = 0;
+			while ((vars->zx * vars->zx + vars->zy * vars->zy <= 4)
+			&& vars->iter < 800)
 			{
-				px = (x - width/2) * 4 / width;
-				py = (y - height/2) * 4 / height;
-				zx = 0.0;
-				zy = 0.0;
-				iter = 0;
-				while (zx * zx + zy * zy < 4 && iter <= iter_max)
-				{
-					i = zx * zx - zy * zy + px;
-					zy = 2 * zx * zy + py;
-					zx = i;
-					iter++;
-				}
-				if (iter == 1000)
-					my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-				else
-					my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-				x++;
+				vars->i = vars->zx * vars->zx - vars->zy * vars->zy + vars->px;
+				vars->zy = 2 * vars->zx * vars->zy + vars->py;
+				vars->zx = vars->i;
+				vars->iter++;
 			}
-		y++;
+			if (vars->iter < 800)
+				my_mlx_pixel_put(&img, vars->x, vars->y,
+						ft_gradient(0x75E555, 0xE8811A, vars->iter, 1000));
+			else
+				my_mlx_pixel_put(&img, vars->x, vars->y, 0x000000);
+			vars->x++;
+		}
+		vars->y++;
 	}
-	mlx_hook(vars.win, 2, 1L<<0, key_hook, &vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 1, 1);
+}
+
+int	mouse_get_pos(int mousecode, t_vars *vars)
+{
+//	vars->zoom += 0.1;
+	if (mousecode == 5)
+	{
+		printf("%d\n", mousecode);
+		ft_mandelbrot(vars);
+	}
+	else if (mousecode == 4)
+	{
+		printf("%d\n", mousecode);
+		ft_mandelbrot(vars);
+	}
+	return (0);
+}
+
+void	ft_julia(t_vars *vars)
+{
+	t_data img;
+
+	mlx_clear_window(vars->mlx, vars->win);
+	img.img = mlx_new_image(vars->mlx, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
+	vars->y = 1;
+	while (vars->y < HEIGHT)
+	{
+		vars->x = 1;
+		while (vars->x < WIDTH)
+		{
+			vars->zx = 2 * (vars->x - WIDTH / 2) / (0.5 * WIDTH);
+			vars->zy = (vars->y - HEIGHT / 2) / (0.5 * HEIGHT);
+			vars->i = 0;
+			vars->iter = 0;
+			vars->cx = 2 * (vars->xm - WIDTH / 2) / (0.5 * WIDTH);
+			vars->cy = (vars->ym - HEIGHT / 2) / (0.5 * HEIGHT);
+			while ((vars->zx * vars->zx + vars->zy * vars->zy <= 4)
+			&& vars->iter < 1000)
+			{
+				vars->i = vars->zx * vars->zx - vars->zy * vars->zy;
+				vars->zy = 2 * vars->zx * vars->zy + vars->cy;
+				vars->zx = vars->i + vars->cx;
+				vars->iter++;
+			}
+			if (vars->iter < 1000)
+				my_mlx_pixel_put(&img, vars->x, vars->y,
+								 ft_gradient(0x75E555, 0xE8811A, vars->iter, 1000));
+			else
+				my_mlx_pixel_put(&img, vars->x, vars->y, 0x000000);
+			vars->x++;
+		}
+		vars->y++;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 1, 1);
+}
+
+void init(t_vars *vars)
+{
+	vars->mlx = mlx_init();
+	vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGHT, "Mandelbrot");
+	vars->zoom = 1;
+}
+
+int	main(int argc, char **argv)
+{
+	t_vars	vars;
+
+	init(&vars);
+	if (argc > 1)
+	{
+		if (ft_strncmp(argv[1], "Mandelbrot", 10) == 0)
+			ft_mandelbrot(&vars);
+		if (ft_strncmp(argv[1], "Julia", 5) == 0)
+			ft_julia(&vars);
+	}
+	else
+	{
+		write(1, &"Wrong input! Here is available sets for this moment:\n "
+			"Mandelbrot\n Julia\n", 72);
+		exit(0);
+	}
+	mlx_hook(vars.win, 4, 0, mouse_get_pos, &vars);
+	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }
