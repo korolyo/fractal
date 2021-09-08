@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char	*nptr)
+#include "libft.h"
+
+int	ft_atoi(const char *nptr)
 {
 	long long int	n;
 	long long int	sign;

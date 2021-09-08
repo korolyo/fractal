@@ -1,12 +1,16 @@
 
 NAME	=	fractol
 
-SOURCES_LIST	= 	ft_fractol.c\
+SOURCES_LIST	= 	main.c\
+					draw.c\
+					init_hooks.c\
+					fractals.c
 
 CC		= gcc
 CFLAGS	=	-Werror -Wall -Wextra
 LIBRARIES = -lmlx -lm -lft\
 	-L$(LIBFT_DIRECTORY) -L$(MINILIBX_DIRECTORY)\
+	-Wno-deprecated-declarations\
 	-framework OpenGL -framework AppKit
 INCLUDES = -I$(LIBFT_HEADERS) -I$(MINILIBX_HEADERS) -I$(HEADERS_DIR)
 
