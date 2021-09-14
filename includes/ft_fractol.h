@@ -16,12 +16,15 @@
 # define WIDTH 480
 # define HEIGHT 360
 # define ESC_KEY 53
+# define ARROW_L 123
+# define ARROW_R 124
+# define ARROW_D 125
+# define ARROW_U 126
 # define SCROLL_UP 5
 # define SCROLL_DOWN 4
 # define COL_ST 0x75E555
 # define COL_FIN 0xE8811A
 # define BLACK 0x000000
-# define ITER_MAX 1000
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -56,13 +59,20 @@ typedef struct s_vars {
 	double		cy;
 	double		zx;
 	double		zy;
+	double		zxm;
+	double		zym;
 	double		zoom;
 	t_data		*img;
 	char		*fractol;
-	double 		zsqx;
+	double		zsqx;
 	double		zsqy;
-	double		moveX;
-	double		moveY;
+	double		zsqxm;
+	double		zsqym;
+	double		move_x;
+	double		move_y;
+	double		new_w;
+	double 		new_h;
+	int			it_max;
 }				t_vars;
 
 void	init(t_vars *vars);
@@ -72,10 +82,11 @@ int		mouse_get_pos(int mousecode, int x, int y, t_vars *vars);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	ft_mandelbrot(t_vars *vars, t_data *img);
 void	ft_julia(t_vars *vars, t_data *img);
+void	ft_tricorn(t_vars *vars, t_data *img);
 int		gradient(int startcolor, int endcolor, int len, int pix);
 void	draw_fractol(t_vars *vars);
-void	init_mandelbrot(t_vars *vars);
-void	init_julia(t_vars *vars);
+void	init_fractol(t_vars *vars);
 void	params(char **argv, t_vars *vars);
+void	zoom(t_vars *vars, int x, int y);
 
 #endif
