@@ -12,6 +12,33 @@
 
 #include "ft_fractol.h"
 
+void	ft_tricorn(t_vars *vars, t_data *img)
+{
+	while (++vars->y < HEIGHT)
+	{
+		vars->x = 1;
+		while (++vars->x < WIDTH)
+		{
+			init_fractol(vars);
+			while ((vars->zsqxm + vars->zsqym <= 4)
+				&& vars->iter < vars->it_max)
+			{
+				vars->i = vars->zsqxm - vars->zsqym + vars->px;
+				vars->zym = -2 * vars->zxm * vars->zym + vars->py;
+				vars->zxm = vars->i;
+				vars->iter++;
+				vars->zsqxm = vars->zxm * vars->zxm;
+				vars->zsqym = vars->zym * vars->zym;
+			}
+			if (vars->iter < vars->it_max)
+				my_mlx_pixel_put(img, vars->x, vars->y,
+					gradient(COL_ST, COL_FIN, vars->iter, vars->it_max));
+			else
+				my_mlx_pixel_put(img, vars->x, vars->y, BLACK);
+		}
+	}
+}
+
 void	ft_mandelbrot(t_vars *vars, t_data *img)
 {
 	while (++vars->y < HEIGHT)
@@ -19,37 +46,24 @@ void	ft_mandelbrot(t_vars *vars, t_data *img)
 		vars->x = 1;
 		while (++vars->x < WIDTH)
 		{
-			init_mandelbrot(vars);
-			while ((vars->zsqx + vars->zsqy <= 4) && vars->iter < ITER_MAX)
+			init_fractol(vars);
+			while ((vars->zsqxm + vars->zsqym <= 4)
+				&& vars->iter < vars->it_max)
 			{
-				vars->i = vars->zsqx - vars->zsqy + vars->px;
-				vars->zy = 2 * vars->zx * vars->zy + vars->py;
-				vars->zx = vars->i;
+				vars->i = vars->zsqxm - vars->zsqym + vars->px;
+				vars->zym = 2 * vars->zxm * vars->zym + vars->py;
+				vars->zxm = vars->i;
 				vars->iter++;
-				vars->zsqx = vars->zx * vars->zx;
-				vars->zsqy = vars->zy * vars->zy;
+				vars->zsqxm = vars->zxm * vars->zxm;
+				vars->zsqym = vars->zym * vars->zym;
 			}
-			if (vars->iter < ITER_MAX)
+			if (vars->iter < vars->it_max)
 				my_mlx_pixel_put(img, vars->x, vars->y,
-					gradient(COL_ST, COL_FIN, vars->iter, ITER_MAX));
+					gradient(COL_ST, COL_FIN, vars->iter, vars->it_max));
 			else
 				my_mlx_pixel_put(img, vars->x, vars->y, BLACK);
 		}
 	}
-}
-
-void	init_mandelbrot(t_vars *vars)
-{
-	vars->px = 2 * vars->zoom * (vars->x - WIDTH / 2) / (0.5 * WIDTH) +
-			vars->moveX;
-	vars->py = vars->zoom * (vars->y - HEIGHT / 2) / (0.5 * HEIGHT) +
-			vars->moveY;
-	vars->zx = 0.0;
-	vars->zy = 0.0;
-	vars->i = 0;
-	vars->iter = 0;
-	vars->zsqx = vars->zx * vars->zx;
-	vars->zsqy = vars->zy * vars->zy;
 }
 
 void	ft_julia(t_vars *vars, t_data *img)
@@ -59,8 +73,8 @@ void	ft_julia(t_vars *vars, t_data *img)
 		vars->x = 1;
 		while (++vars->x < WIDTH)
 		{
-			init_julia(vars);
-			while ((vars->zsqx + vars->zsqy <= 4) && vars->iter < ITER_MAX)
+			init_fractol(vars);
+			while ((vars->zsqx + vars->zsqy <= 4) && vars->iter < vars->it_max)
 			{
 				vars->i = vars->zsqx - vars->zsqy + vars->cx;
 				vars->zy = 2 * vars->zx * vars->zy + vars->cy;
@@ -69,21 +83,29 @@ void	ft_julia(t_vars *vars, t_data *img)
 				vars->zsqx = vars->zx * vars->zx;
 				vars->zsqy = vars->zy * vars->zy;
 			}
-			if (vars->iter < ITER_MAX)
+			if (vars->iter < vars->it_max)
 				my_mlx_pixel_put(img, vars->x, vars->y,
-					gradient(COL_ST, COL_FIN, vars->iter, ITER_MAX));
+					gradient(COL_ST, COL_FIN, vars->iter, vars->it_max));
 			else
 				my_mlx_pixel_put(img, vars->x, vars->y, BLACK);
 		}
 	}
 }
 
-void	init_julia(t_vars *vars)
+void	init_fractol(t_vars *vars)
 {
+	vars->px = 2 * vars->zoom * (vars->x - WIDTH / 2) / (0.5 * WIDTH)
+		+ vars->new_w;
+	vars->py = vars->zoom * (vars->y - HEIGHT / 2) / (0.5 * HEIGHT)
+		+ vars->new_h;
 	vars->zx = 1.5 * vars->zoom * (vars->x - WIDTH / 2) / (0.5 * WIDTH);
 	vars->zy = vars->zoom * (vars->y - HEIGHT / 2) / (0.5 * HEIGHT);
+	vars->zxm = 0;
+	vars->zym = 0;
 	vars->i = 0;
 	vars->iter = 0;
+	vars->zsqxm = vars->zxm * vars->zxm;
+	vars->zsqym = vars->zym * vars->zym;
 	vars->zsqx = vars->zx * vars->zx;
 	vars->zsqy = vars->zy * vars->zy;
 }
@@ -100,5 +122,7 @@ void	draw_fractol(t_vars *vars)
 		ft_mandelbrot(vars, &img);
 	else if (ft_strncmp(vars->fractol, "julia", 10) == 0)
 		ft_julia(vars, &img);
+	else if (ft_strncmp(vars->fractol, "tricorn", 7) == 0)
+		ft_tricorn(vars, &img);
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 1, 1);
 }
